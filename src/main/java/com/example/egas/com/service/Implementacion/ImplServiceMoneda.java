@@ -1,6 +1,7 @@
 package com.example.egas.com.service.Implementacion;
 
 import com.example.egas.com.model.Moneda;
+import com.example.egas.com.response.CambioResponse;
 import com.example.egas.com.response.MonedaResponse;
 import com.example.egas.com.service.IServiceMoneda;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,11 @@ public class ImplServiceMoneda implements IServiceMoneda {
 
         return Mono.just(listaMonedas())
                 .map(monedas -> new MonedaResponse(monedas));
+    }
+
+    @Override
+    public Mono<CambioResponse> obtenerValor(Integer idMoneda, Integer cantidad) {
+        return null;
     }
 
     private List<Moneda> listaMonedas(){

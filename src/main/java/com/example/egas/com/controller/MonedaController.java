@@ -1,18 +1,18 @@
 package com.example.egas.com.controller;
 
-import com.example.egas.com.model.Moneda;
+
+import com.example.egas.com.response.CambioResponse;
 import com.example.egas.com.response.MonedaResponse;
-import com.example.egas.com.service.IServiceMoneda;
-import com.example.egas.com.service.MiServicio;
 import com.example.egas.com.service.ServicioCliente;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -30,10 +30,15 @@ public class MonedaController {
     }
     */
 
-    private final ServicioCliente miServicio;
+    private final ServicioCliente servicioCliente;
 
     @GetMapping("/obtener-datos")
-    public Mono<List<Moneda>> obtenerDatos() {
-        return miServicio.llamarAServicioExterno();
+    public Mono<MonedaResponse> obtenerDatos() {
+        return servicioCliente.listarMoneda();
+    }
+
+    @GetMapping("/obtener-valor/{idMoneda}/{cantidad}")
+    public Mono<CambioResponse> obtenerValor(@PathVariable Integer idMoneda, @PathVariable Integer cantidad) {
+        return servicioCliente.obtenerValor(idMoneda, cantidad);
     }
 }
