@@ -1,44 +1,39 @@
 package com.example.egas.com.controller;
 
 
+import com.example.egas.com.response.CambioRequest;
 import com.example.egas.com.response.CambioResponse;
 import com.example.egas.com.response.MonedaResponse;
-import com.example.egas.com.service.ServicioCliente;
+import com.example.egas.com.service.IServiceCliente;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/webClient")
 @RequiredArgsConstructor
 public class MonedaController {
 
-    //private final IServiceMoneda iServiceMoneda;
+    private final IServiceCliente servicioCliente;
 
-    /*
-    @GetMapping("/mono")
-    public Mono<MonedaResponse> getListarMoneda() {
-        MonedaResponse monedaResponse = new MonedaResponse();
-
-        return iServiceMoneda.listarMoneda();
-    }
-    */
-
-    private final ServicioCliente servicioCliente;
-
-    @GetMapping("/obtener-datos")
-    public Mono<MonedaResponse> obtenerDatos() {
+    @GetMapping("/listarMoneda")
+    public Mono<MonedaResponse> listarMoneda() {
         return servicioCliente.listarMoneda();
     }
 
-    @GetMapping("/obtener-valor/{idMoneda}/{cantidad}")
-    public Mono<CambioResponse> obtenerValor(@PathVariable Integer idMoneda, @PathVariable Integer cantidad) {
-        return servicioCliente.obtenerValor(idMoneda, cantidad);
+    @GetMapping("/obtenerCambio/{idMoneda}/{cantidad}")
+    public Mono<CambioResponse> obtenerCambio(@PathVariable Integer idMoneda, @PathVariable Integer cantidad) {
+        return servicioCliente.obtenerCambio(idMoneda, cantidad);
+    }
+
+    @PostMapping("/obtenerCambio2")
+    public Mono<CambioResponse> obtenerCambio2(@RequestBody CambioRequest cambioRequest) {
+        return servicioCliente.obtenerCambio2(cambioRequest);
+    }
+
+    @GetMapping("/obtenerCambio3")
+    public Mono<CambioResponse> obtenerCambio3(@RequestParam Integer idMoneda, @RequestParam Integer cantidad) {
+        return servicioCliente.obtenerCambio3(idMoneda, cantidad);
     }
 }

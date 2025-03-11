@@ -1,6 +1,7 @@
 package com.example.egas.com.service.Implementacion;
 
 import com.example.egas.com.model.Moneda;
+import com.example.egas.com.response.CambioRequest;
 import com.example.egas.com.response.CambioResponse;
 import com.example.egas.com.response.MonedaResponse;
 import com.example.egas.com.service.IServiceMoneda;
@@ -15,18 +16,13 @@ public class ImplServiceMoneda implements IServiceMoneda {
 
 
     @Override
-    public Mono<MonedaResponse> listarMoneda() {
+    public Mono<MonedaResponse> obtenerMonedas() {
 
-        return Mono.just(listaMonedas())
+        return Mono.just(obtenerMonedas2())
                 .map(monedas -> new MonedaResponse(monedas));
     }
 
-    @Override
-    public Mono<CambioResponse> obtenerValor(Integer idMoneda, Integer cantidad) {
-        return null;
-    }
-
-    private List<Moneda> listaMonedas(){
+    private List<Moneda> obtenerMonedas2(){
 
         List<Moneda> listaMoneda = new ArrayList();
 
@@ -52,4 +48,5 @@ public class ImplServiceMoneda implements IServiceMoneda {
         return listaMoneda;
 
     }
+
 }
